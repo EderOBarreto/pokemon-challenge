@@ -1,0 +1,7 @@
+@mixin font-face($name, $weight, $path) {
+  @font-face {
+    font-family: $name;
+    font-weight: $weight;
+    src: url('#{$path}.ttf');
+  }
+}

@@ -1,65 +1,102 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">pokemon-challenge</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div class="search">
+      <poke-input
+        placeholder="Pesquisar por nome ou numero"
+        width="500"
+        :vmodel.sync="searchTerm"
+      />
+      <div class="select">
+        <span class="text">Ordenar Por</span>
+        <poke-select :options="options" :vmodel.sync="selectedOrder" />
       </div>
     </div>
+    <div class="pokemons">
+      <!-- <div class="sidebar"></div> -->
+      <poke-filters title="Filtrar por tipo" :types="pokemonTypes" />
+      <poke-list class="list" />
+    </div>
+    <h1>{{ searchTerm }}</h1>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+// import Logo from '~/components/Logo.vue'
+import { Component, Vue } from 'vue-property-decorator'
+import { PokeInput, PokeSelect } from '~/shared/components'
+import { PokeFilters, PokeList } from '~/components/pokedex'
 
-export default Vue.extend({})
+// des and asc
+const options = [
+  {
+    sort_param: 'name',
+    dir: 'asc',
+    label: 'Por Nome A-Z',
+  },
+  {
+    sort_param: 'name',
+    dir: 'des',
+    label: 'Por Nome Z-A',
+  },
+  {
+    sort_param: 'register',
+    dir: 'asc',
+    label: 'Menor numero primeiro',
+  },
+  {
+    sort_param: 'register',
+    dir: 'des',
+    label: 'Maior numero primeiro',
+  },
+]
+
+const pokemonTypes: any = []
+
+@Component({
+  components: { PokeInput, PokeSelect, PokeFilters, PokeList },
+  data() {
+    return {
+      options,
+      pokemonTypes,
+    }
+  },
+})
+class Index extends Vue {
+  searchTerm = ''
+  selectedOrder = options[3]
+}
+
+export default Index
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import '~/assets/scss/settings/measures.scss';
+
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  display: grid;
+}
+
+.search {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  margin-top: 40px;
+  width: 100%;
+}
+
+.search > .select {
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-self: end;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.search > .select > .text {
+  font-size: 14px;
+  margin-right: 15px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.container > .pokemons {
+  display: grid;
+  grid-template-columns: 200px 1fr;
 }
 </style>

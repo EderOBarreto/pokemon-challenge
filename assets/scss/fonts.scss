@@ -1,0 +1,6 @@
+@import './tools/set-tools.scss';
+
+@include font-face('Titillium Web', 300, '../fonts/TitilliumWeb-Light');
+@include font-face('Titillium Web', 400, '../fonts/TitilliumWeb-Regular');
+@include font-face('Titillium Web', 600, '../fonts/TitilliumWeb-SemiBold');
+@include font-face('Titillium Web', 700, '../fonts/TitilliumWeb-Bold');
