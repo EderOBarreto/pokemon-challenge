@@ -13,7 +13,7 @@
     </div>
     <div class="pokemons">
       <!-- <div class="sidebar"></div> -->
-      <poke-filters title="Filtrar por tipo" :types="pokemonTypes" />
+      <poke-filters title="Filtrar por tipo" :vmodel.sync="selectedTypes" />
       <poke-list class="list" />
     </div>
     <h1>{{ searchTerm }}</h1>
@@ -53,6 +53,15 @@ const options = [
 const pokemonTypes: any = []
 
 @Component({
+  async asyncData(context) {
+    const data = await context.$axios.$get(
+      `https://unpkg.com/pokemons@1.1.0/pokemons.json`
+    )
+
+    const { results } = data
+
+    return { results }
+  },
   components: { PokeInput, PokeSelect, PokeFilters, PokeList },
   data() {
     return {
@@ -62,6 +71,7 @@ const pokemonTypes: any = []
   },
 })
 class Index extends Vue {
+  selectedTypes = []
   searchTerm = ''
   selectedOrder = options[3]
 }
