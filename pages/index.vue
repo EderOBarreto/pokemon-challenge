@@ -26,7 +26,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { uniqBy, orderBy } from 'lodash'
 import { getModule } from 'vuex-module-decorators'
 import Favorites from '~/store/favorites'
-import { PokeInput, PokeSelect } from '~/shared/components'
+import { PokeInput, PokeSelect, PokeSwitch } from '~/shared/components'
 import { PokeFilters, PokeList } from '~/components/pokedex'
 import { ISortOption } from '~/types/ISortOption'
 import { IPokemon } from '~/types/IPokemon'
@@ -54,20 +54,20 @@ const options: Array<ISortOption> = [
   },
 ]
 
+const API = `https://unpkg.com/pokemons@1.1.0/pokemons.json`
+
 @Component({
   head: {
     title: 'Pokedex',
   },
   async asyncData(context) {
-    const data = await context.$axios.$get(
-      `https://unpkg.com/pokemons@1.1.0/pokemons.json`
-    )
+    const data = await context.$axios.$get(API)
 
     const results = uniqBy(data.results, 'national_number')
 
     return { results }
   },
-  components: { PokeInput, PokeSelect, PokeFilters, PokeList },
+  components: { PokeInput, PokeSelect, PokeFilters, PokeList, PokeSwitch },
   data() {
     return {
       options,

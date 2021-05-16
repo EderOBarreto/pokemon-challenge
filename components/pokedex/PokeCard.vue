@@ -5,7 +5,7 @@
       :class="['favorite', isFavorite ? '-selected' : '']"
       :favorited="isFavorite"
     />
-    <img class="image" :src="data.sprites.large" />
+    <img class="image" v-lazy="data.sprites.large" />
     <span class="number">N° {{ data.national_number }} </span>
     <strong class="name">{{ data.name }}</strong>
     <div class="types">

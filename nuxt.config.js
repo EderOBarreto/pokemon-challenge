@@ -28,6 +28,7 @@ export default {
     '~/plugins/axios-accessor',
     '~/plugins/on-click-outside',
     '~/plugins/vuex-persist',
+    '~/plugins/vue-lazyload',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
