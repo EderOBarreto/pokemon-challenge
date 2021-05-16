@@ -36,6 +36,7 @@ class PokeCard extends Vue {
   // TODO: search for a better way do deal with store being restored
   @Watch('$store.restored')
   @Watch('calInstance.favorites')
+  @Watch('data')
   setIsFavorite() {
     this.isFavorite = this.getIsFavorite()
   }
