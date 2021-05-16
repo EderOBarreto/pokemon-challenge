@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="pokemons">
-      <poke-filters title="Filtrar por tipo" :vmodel.sync="selectedTypes" />
+      <poke-filters title="Filtrar por Tipo" :vmodel.sync="selectedTypes" />
       <poke-list class="list" :pokemons="getPokemons()" />
     </div>
   </div>
@@ -27,7 +27,6 @@ import { PokeFilters, PokeList } from '~/components/pokedex'
 import { ISortOption } from '~/types/ISortOption'
 import { IPokemon } from '~/types/IPokemon'
 
-// des and asc
 const options: Array<ISortOption> = [
   {
     sortParam: 'name',
@@ -51,9 +50,10 @@ const options: Array<ISortOption> = [
   },
 ]
 
-const pokemonTypes: any = []
-
 @Component({
+  head: {
+    title: 'Pokedex',
+  },
   async asyncData(context) {
     const data = await context.$axios.$get(
       `https://unpkg.com/pokemons@1.1.0/pokemons.json`
@@ -67,7 +67,6 @@ const pokemonTypes: any = []
   data() {
     return {
       options,
-      pokemonTypes,
     }
   },
 })

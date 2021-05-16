@@ -2,7 +2,12 @@
   <div
     class="poke-select"
     :style="{ width: `${width}px` }"
-    @click="showOptions()"
+    ref="select"
+    @click.prevent="toggleOptions()"
+    v-closable="{
+      exclude: ['select'],
+      handler: 'closeOptions',
+    }"
   >
     <div class="label">
       {{ showValue }}
@@ -12,7 +17,6 @@
         class="icon"
       />
     </div>
-
     <ul :class="['options', { '-open': optionsOpened }]">
       <li
         v-for="option in options"
@@ -36,19 +40,22 @@ class PokeSelect extends Vue {
   @Prop({ default: 220 }) width?: number
   @PropSync('vmodel') selectedOption!: Partial<ISortOption>
   optionsOpened = false
-  setValue(option: ISortOption) {
-    this.selectedOption = option
-  }
 
   get showValue() {
     return this.selectedOption.label
   }
 
-  showOptions() {
+  closeOptions() {
+    this.optionsOpened = false
+  }
+
+  toggleOptions() {
     this.optionsOpened = !this.optionsOpened
   }
 
-  // TODO: click out close options
+  setValue(option: ISortOption) {
+    this.selectedOption = option
+  }
 }
 export default PokeSelect
 </script>

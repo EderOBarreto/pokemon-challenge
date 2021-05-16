@@ -1,6 +1,6 @@
 <template>
   <div class="poke-filters">
-    <h3>{{ title }}</h3>
+    <h3 class="title">{{ title }}</h3>
     <div class="tags">
       <span
         v-for="type of pokemonTypes"
@@ -49,7 +49,11 @@ export default PokeFilters
 .poke-filters {
 }
 
-.poke-filters > .tags {
+.poke-filters > .title {
+  font-size: 16px;
+  color: $font;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .poke-filters > .tags > .pill {
