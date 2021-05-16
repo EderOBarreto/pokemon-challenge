@@ -50,8 +50,6 @@ export default PokeFilters
 }
 
 .poke-filters > .tags {
-  /* display: flex;
-  gap: 10px; */
 }
 
 .poke-filters > .tags > .pill {

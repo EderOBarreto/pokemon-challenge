@@ -1,6 +1,6 @@
 <template>
   <div class="poke-input" :style="{ width: `${width}px` }">
-    <input v-model="searchTerm" :placeholder="placeholder" class="input" />
+    <input :placeholder="placeholder" class="input" @input="debounceSearch" />
     <font-awesome-icon fas icon="search" class="icon" />
   </div>
 </template>
@@ -12,6 +12,13 @@ class PokeInput extends Vue {
   @Prop({ default: '' }) placeholder?: string
   @Prop({ default: 300 }) width?: number
   @PropSync('vmodel') searchTerm!: string
+  debounce: any = null
+  debounceSearch(event: any) {
+    clearTimeout(this.debounce)
+    this.debounce = setTimeout(() => {
+      this.searchTerm = event.target.value
+    }, 500)
+  }
 }
 export default PokeInput
 </script>

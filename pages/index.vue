@@ -12,16 +12,14 @@
       </div>
     </div>
     <div class="pokemons">
-      <!-- <div class="sidebar"></div> -->
       <poke-filters title="Filtrar por tipo" :vmodel.sync="selectedTypes" />
-      <poke-list class="list" />
+      <poke-list class="list" :pokemons="getPokemonsFiltered" />
     </div>
-    <h1>{{ searchTerm }}</h1>
   </div>
 </template>
 
 <script lang="ts">
-// import Logo from '~/components/Logo.vue'
+/* eslint-disable camelcase */
 import { Component, Vue } from 'vue-property-decorator'
 import { PokeInput, PokeSelect } from '~/shared/components'
 import { PokeFilters, PokeList } from '~/components/pokedex'
@@ -74,6 +72,17 @@ class Index extends Vue {
   selectedTypes = []
   searchTerm = ''
   selectedOrder = options[3]
+
+  get getPokemonsFiltered() {
+    let filteredResult = [...this.$data.results] as any
+    const nameOrNumberRegex = RegExp(`${this.searchTerm.trim()}`, 'ig')
+    filteredResult = filteredResult.filter(({ national_number, name }: any) => {
+      return (
+        nameOrNumberRegex.test(name) || nameOrNumberRegex.test(national_number)
+      )
+    })
+    return filteredResult
+  }
 }
 
 export default Index
@@ -83,6 +92,7 @@ export default Index
 @import '~/assets/scss/settings/measures.scss';
 
 .container {
+  width: 1200px; // TODO: use breakpoints later
   margin: 0 auto;
   display: grid;
 }
@@ -108,5 +118,6 @@ export default Index
 .container > .pokemons {
   display: grid;
   grid-template-columns: 200px 1fr;
+  margin-top: 60px;
 }
 </style>
