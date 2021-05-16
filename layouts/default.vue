@@ -23,8 +23,10 @@ export default Default
 @import '~/assets/scss/settings/measures.scss';
 .pokemon-content {
   > .content {
-    margin-top: $headerHeight;
-    min-height: calc(100vh - #{$headerHeight});
+    display: flex;
+    justify-content: center;
+    margin-top: $header-height;
+    min-height: calc(100vh - #{$header-height});
   }
 }
 </style>

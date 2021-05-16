@@ -39,7 +39,7 @@ export default PokHeader
   display: grid;
   justify-items: center;
   width: 100vw;
-  height: $headerHeight;
+  height: $header-height;
   padding: 0;
   margin: 0;
   background-color: $red;
@@ -48,7 +48,7 @@ export default PokHeader
 }
 
 .poke-header > .options {
-  width: 1200px; // TODO: add breakpoints afterwards
+  max-width: 1200px; // TODO: add breakpoints afterwards
   display: grid;
   grid-template-columns: 1fr repeat(2, 50px);
   align-items: center;

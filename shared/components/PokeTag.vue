@@ -14,6 +14,8 @@ export default PokeTag
 
 <style lang="scss" scoped>
 @import '~/assets/scss/settings/colors.scss';
+@import '~/assets/scss/tools/set-flesh-text-color.scss';
+
 .poke-tag {
   display: inline-block;
   height: 30px;
@@ -23,12 +25,12 @@ export default PokeTag
   font-weight: 600;
   text-align: center;
   border-radius: 4px;
-  /* background-color: $ghost-white; */
   transition: color, background-color 500ms ease;
 
   @each $name, $color in $pokemon-tag-colors {
     &.#{$name} {
       background: $color;
+      color: set-flash-text-color($color);
     }
   }
 }

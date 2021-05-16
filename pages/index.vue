@@ -128,7 +128,8 @@ export default Index
 @import '~/assets/scss/settings/measures.scss';
 
 .container {
-  width: 1200px; // TODO: use breakpoints later
+  max-width: 1200px; // TODO: use breakpoints later
+  width: 100%;
   margin: 0 auto;
   display: grid;
 }

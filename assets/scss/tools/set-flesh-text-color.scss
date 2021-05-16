@@ -1,0 +1,9 @@
+@import '../settings/colors.scss';
+
+@function set-flash-text-color($color: nth($status, 1)) {
+  @if (lightness($color) > 70) {
+    @return $font; // Lighter background, return dark color
+  } @else {
+    @return $white; // Darker background, return light color
+  }
+}

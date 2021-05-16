@@ -32,6 +32,7 @@ export default PokeList
 <style lang="scss" scoped>
 @import '~/assets/scss/tools/scrollbars.scss';
 @import '~/assets/scss/settings/colors.scss';
+@import '~/assets/scss/settings/measures.scss';
 
 .poke-list {
   overflow-y: auto;
@@ -43,7 +44,8 @@ export default PokeList
   gap: 25px;
   padding-top: 25px;
   padding-left: 5px;
-  height: calc(100vh - 300px); // TODO: consider cardheigth later
+  padding-right: 5px;
+  height: calc(100vh - 260px); // TODO: consider cardheigth later
   @include scrollbars(5px, $red, $white);
 }
 

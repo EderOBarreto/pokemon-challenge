@@ -48,12 +48,14 @@ export default PokeCard
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/scss/settings/colors.scss';
+@import '~/assets/scss/settings/index.scss';
+
 .poke-card {
   position: relative;
   display: grid;
-  width: 200px;
-  height: 270px;
+  min-width: $card-min-width;
+  max-width: $card-max-width;
+  height: $card-height;
   box-shadow: 0 3px 5px rgba($black, 0.3);
   padding: 15px;
   border-radius: 5px;
