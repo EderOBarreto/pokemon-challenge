@@ -27,19 +27,16 @@
 </template>
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
-
-type Option = {
-  label: string
-}
+import { ISortOption } from '~/types/ISortOption'
 
 @Component
 class PokeSelect extends Vue {
-  @Prop({ default: [] }) options!: any
+  @Prop({ default: [] }) options!: Array<ISortOption>
   @Prop({ default: '' }) label?: string
   @Prop({ default: 220 }) width?: number
-  @PropSync('vmodel', { type: Option }) selectedOption!: Partial<Option>
+  @PropSync('vmodel') selectedOption!: Partial<ISortOption>
   optionsOpened = false
-  setValue(option: Option) {
+  setValue(option: ISortOption) {
     this.selectedOption = option
   }
 
@@ -87,6 +84,7 @@ export default PokeSelect
   transform: translate3d(0, -100%, 0);
   transition: transform 0.3s ease;
   box-shadow: 0 3px 5px rgba($black, 0.3);
+  background-color: $white;
   &.-open {
     visibility: visible;
     min-width: inherit;
@@ -97,13 +95,14 @@ export default PokeSelect
     line-height: 40px;
     text-align: left;
     border-radius: 5px;
-    overflow-y: scroll;
+    overflow: auto;
     transform: translate3d(0, 0, 0);
     // TODO: improve animation
     > .item {
       z-index: 2;
       padding-left: 15px;
       &:hover {
+        background-color: $light-gray;
       }
     }
   }

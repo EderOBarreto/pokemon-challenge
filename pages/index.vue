@@ -13,7 +13,7 @@
     </div>
     <div class="pokemons">
       <poke-filters title="Filtrar por tipo" :vmodel.sync="selectedTypes" />
-      <poke-list class="list" :pokemons="getPokemonsFiltered" />
+      <poke-list class="list" :pokemons="getPokemons()" />
     </div>
   </div>
 </template>
@@ -21,29 +21,32 @@
 <script lang="ts">
 /* eslint-disable camelcase */
 import { Component, Vue } from 'vue-property-decorator'
+import { uniqBy, orderBy } from 'lodash'
 import { PokeInput, PokeSelect } from '~/shared/components'
 import { PokeFilters, PokeList } from '~/components/pokedex'
+import { ISortOption } from '~/types/ISortOption'
+import { IPokemon } from '~/types/IPokemon'
 
 // des and asc
-const options = [
+const options: Array<ISortOption> = [
   {
-    sort_param: 'name',
+    sortParam: 'name',
     dir: 'asc',
     label: 'Por Nome A-Z',
   },
   {
-    sort_param: 'name',
-    dir: 'des',
+    sortParam: 'name',
+    dir: 'desc',
     label: 'Por Nome Z-A',
   },
   {
-    sort_param: 'register',
+    sortParam: 'national_number',
     dir: 'asc',
     label: 'Menor numero primeiro',
   },
   {
-    sort_param: 'register',
-    dir: 'des',
+    sortParam: 'national_number',
+    dir: 'desc',
     label: 'Maior numero primeiro',
   },
 ]
@@ -56,7 +59,7 @@ const pokemonTypes: any = []
       `https://unpkg.com/pokemons@1.1.0/pokemons.json`
     )
 
-    const { results } = data
+    const results = uniqBy(data.results, 'national_number')
 
     return { results }
   },
@@ -69,11 +72,11 @@ const pokemonTypes: any = []
   },
 })
 class Index extends Vue {
-  selectedTypes = []
+  selectedTypes: Array<string> = []
   searchTerm = ''
-  selectedOrder = options[3]
+  selectedOrder: ISortOption = options[2]
 
-  get getPokemonsFiltered() {
+  getPokemonsSearched() {
     let filteredResult = [...this.$data.results] as any
     const nameOrNumberRegex = RegExp(`${this.searchTerm.trim()}`, 'ig')
     filteredResult = filteredResult.filter(({ national_number, name }: any) => {
@@ -82,6 +85,34 @@ class Index extends Vue {
       )
     })
     return filteredResult
+  }
+
+  getSortedPokemons(pokemons: Array<IPokemon>) {
+    const { sortParam, dir } = this.selectedOrder
+    return orderBy(pokemons, sortParam, dir)
+  }
+
+  /**
+   *
+   */
+  getFilterByType(pokemons: Array<IPokemon>): IPokemon[] {
+    if (this.selectedTypes.length > 0) {
+      const filtered = pokemons.filter((pokemon) =>
+        pokemon.type.some((type) =>
+          this.selectedTypes.includes(type.toLowerCase())
+        )
+      )
+      return filtered
+    }
+
+    return pokemons
+  }
+
+  getPokemons() {
+    const pokemonsSearched = this.getPokemonsSearched()
+    const sortedPokemons = this.getSortedPokemons(pokemonsSearched)
+    const filteredPokemons = this.getFilterByType(sortedPokemons)
+    return filteredPokemons
   }
 }
 

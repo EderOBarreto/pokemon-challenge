@@ -5,21 +5,28 @@ $red: #e2350d;
 $white: #fff;
 $black: #000;
 
-$fire: #ee7f33;
-$normal: #a9a778;
-$water: #6890f0;
-$grass: #78c84f;
-$ice: #98d8d7;
-$poison: #a040a1;
-$ground: #e0c069;
-$flying: #a790ef;
-$bug: #a8b821;
-$rock: #b6a037;
-$ghost: #705797;
-$dragon: #724ef9;
-$dark: #6f5848;
-$steel: #b8b8d0;
-$fairy: #f4c8e2;
-$psychic: #e95587;
-$electric: #f8cf32;
-$fighting: #c03228;
+$pokemon-tag-colors: (
+  fire: #ee7f33,
+  normal: #a9a778,
+  water: #6890f0,
+  grass: #78c84f,
+  ice: #98d8d7,
+  poison: #a040a1,
+  ground: #e0c069,
+  flying: #a790ef,
+  bug: #a8b821,
+  rock: #b6a037,
+  ghost: #705797,
+  dragon: #724ef9,
+  dark: #6f5848,
+  steel: #b8b8d0,
+  fairy: #f4c8e2,
+  psychic: #e95587,
+  electric: #f8cf32,
+  fighting: #c03228,
+);
+
+// TODO: Found out if there is a way to save them in a list from the start.
+// $pokemon-tag-colors: $fire, $normal, $water, $grass, $ice, $poison, $ground,
+//   $flying, $bug, $rock, $ghost, $dragon, $dark, $steel, $fairy, $psychic,
+//   $electric, $fighting;
