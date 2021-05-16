@@ -18,7 +18,6 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 import { pokemonTypes } from './pokemonTypes'
 import { PokeTag } from '~/shared/components'
-// TODO: Create component formula
 @Component({
   components: { PokeTag },
   data() {
@@ -30,6 +29,8 @@ import { PokeTag } from '~/shared/components'
 class PokeFilters extends Vue {
   @Prop({ default: '' }) title?: string
   @PropSync('vmodel') selectedTypes!: Array<string>
+  // TODO: may add a debounce to filter the list after the
+  // user stop selecting avoiding over processing
   setSelectedType(selectedType: string) {
     if (this.selectedTypes.includes(selectedType)) {
       this.selectedTypes = this.selectedTypes.filter(
@@ -46,8 +47,6 @@ export default PokeFilters
 <style lang="scss" scoped>
 /* @import '~/assets/'; */
 @import '~/assets/scss/settings/colors.scss';
-.poke-filters {
-}
 
 .poke-filters > .title {
   font-size: 16px;

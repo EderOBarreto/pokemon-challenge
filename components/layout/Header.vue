@@ -1,22 +1,24 @@
 <template>
-  <ul class="poke-header">
-    <li class="brand">
-      <nuxt-link class="link" to="/">
-        <img src="@/assets/icons/pokeball.svg" alt="Pokemon" class="icon" />
-        <span class="title">Pokédex</span>
-      </nuxt-link>
-    </li>
-    <li class="option user">
-      <nuxt-link class="link" to="/">
-        <img src="@/assets/icons/synvia-A.svg" alt="User" class="icon" />
-      </nuxt-link>
-    </li>
-    <li class="option sign-out">
-      <nuxt-link class="link" to="/">
-        <font-awesome-icon far icon="sign-out-alt" class="icon" />
-      </nuxt-link>
-    </li>
-  </ul>
+  <nav class="poke-header">
+    <ul class="options">
+      <li class="brand">
+        <nuxt-link class="link" to="/">
+          <img src="@/assets/icons/pokeball.svg" alt="Pokemon" class="icon" />
+          <span class="title">Pokédex</span>
+        </nuxt-link>
+      </li>
+      <li class="option user">
+        <nuxt-link class="link" to="/">
+          <img src="@/assets/icons/synvia-A.svg" alt="User" class="icon" />
+        </nuxt-link>
+      </li>
+      <li class="option sign-out">
+        <nuxt-link class="link" to="/">
+          <font-awesome-icon far icon="sign-out-alt" class="icon" />
+        </nuxt-link>
+      </li>
+    </ul>
+  </nav>
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
@@ -35,8 +37,7 @@ export default PokHeader
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: 1fr repeat(2, 50px);
-  align-items: center;
+  justify-items: center;
   width: 100vw;
   height: $headerHeight;
   padding: 0;
@@ -46,7 +47,14 @@ export default PokHeader
   box-shadow: 0 3px 5px rgba($black, 0.3);
 }
 
-.poke-header > .brand {
+.poke-header > .options {
+  width: 1200px; // TODO: add breakpoints afterwards
+  display: grid;
+  grid-template-columns: 1fr repeat(2, 50px);
+  align-items: center;
+}
+
+.poke-header > .options > .brand {
   display: flex;
 }
 
@@ -54,12 +62,12 @@ export default PokHeader
   justify-self: center;
 }
 
-.poke-header > .option > .link > .icon {
+.poke-header > .options > .option > .link > .icon {
   font-size: 24px;
   color: $white;
 }
 
-.poke-header > .brand > .link {
+.poke-header > .options > .brand > .link {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -67,13 +75,13 @@ export default PokHeader
   text-decoration: none;
 }
 
-.poke-header > .brand > .link > .title {
+.poke-header > .options > .brand > .link > .title {
   color: $white;
   font-weight: 700;
   font-size: 32px;
 }
 
-.poke-header > .brand > .link > .icon {
+.poke-header > .options > .brand > .link > .icon {
   height: 55px;
   width: auto;
 }

@@ -12,7 +12,9 @@
       </div>
     </div>
     <div class="pokemons">
-      <poke-filters title="Filtrar por Tipo" :vmodel.sync="selectedTypes" />
+      <div>
+        <poke-filters title="Filtrar por Tipo" :vmodel.sync="selectedTypes" />
+      </div>
       <poke-list class="list" :pokemons="getPokemons()" />
     </div>
   </div>
@@ -22,6 +24,8 @@
 /* eslint-disable camelcase */
 import { Component, Vue } from 'vue-property-decorator'
 import { uniqBy, orderBy } from 'lodash'
+import { getModule } from 'vuex-module-decorators'
+import Favorites from '~/store/favorites'
 import { PokeInput, PokeSelect } from '~/shared/components'
 import { PokeFilters, PokeList } from '~/components/pokedex'
 import { ISortOption } from '~/types/ISortOption'
@@ -74,6 +78,8 @@ class Index extends Vue {
   selectedTypes: Array<string> = []
   searchTerm = ''
   selectedOrder: ISortOption = options[2]
+
+  calInstance = getModule(Favorites, this.$store)
 
   getPokemonsSearched() {
     let filteredResult = [...this.$data.results] as any
@@ -136,6 +142,7 @@ export default Index
 
 .search > .select {
   display: flex;
+  z-index: 1;
   align-items: center;
   justify-self: end;
 }

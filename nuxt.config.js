@@ -26,7 +26,8 @@ export default {
   plugins: [
     '~/plugins/fontawesome',
     '~/plugins/axios-accessor',
-    '~/plugins/onClickOutsite',
+    '~/plugins/on-click-outside',
+    '~/plugins/vuex-persist',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -12,13 +12,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import PokeCard from './PokeCard.vue'
+import { IPokemon } from '~/types/IPokemon'
 
 // TODO: Create component formula
+
 @Component({
   components: { PokeCard },
 })
 class PokeList extends Vue {
-  @Prop({ default: [] }) pokemons!: Array<any>
+  @Prop({ default: [] }) pokemons!: Array<IPokemon>
 
   get getPokemons() {
     return this.pokemons
