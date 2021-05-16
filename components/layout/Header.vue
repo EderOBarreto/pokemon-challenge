@@ -49,6 +49,7 @@ export default PokHeader
 
 .poke-header > .options {
   max-width: 1200px; // TODO: add breakpoints afterwards
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr repeat(2, 50px);
   align-items: center;
