@@ -12,8 +12,10 @@
       </div>
     </div>
     <div class="pokemons">
-      <div>
+      <div class="filters">
         <poke-filters title="Filtrar por Tipo" :vmodel.sync="selectedTypes" />
+        <h3 class="title">Filtrar Favoritos</h3>
+        <poke-switch :vmodel.sync="isFilteredByFavorites" />
       </div>
       <poke-list class="list" :pokemons="getPokemons()" />
     </div>
@@ -78,11 +80,12 @@ class Index extends Vue {
   selectedTypes: Array<string> = []
   searchTerm = ''
   selectedOrder: ISortOption = options[2]
+  isFilteredByFavorites = false
 
   calInstance = getModule(Favorites, this.$store)
 
-  getPokemonsSearched() {
-    let filteredResult = [...this.$data.results] as any
+  getPokemonsSearched(pokemons: Array<IPokemon>) {
+    let filteredResult = pokemons
     const nameOrNumberRegex = RegExp(`${this.searchTerm.trim()}`, 'ig')
     filteredResult = filteredResult.filter(({ national_number, name }: any) => {
       return (
@@ -98,7 +101,7 @@ class Index extends Vue {
   }
 
   /**
-   *
+   * Will select if the pokemon has at least one of the types
    */
   getFilterByType(pokemons: Array<IPokemon>): IPokemon[] {
     if (this.selectedTypes.length > 0) {
@@ -113,8 +116,20 @@ class Index extends Vue {
     return pokemons
   }
 
+  getFavoritePokemons(pokemons: Array<IPokemon>) {
+    if (this.isFilteredByFavorites) {
+      return pokemons.filter(({ national_number }) => {
+        return this.calInstance.favorites.includes(national_number)
+      })
+    }
+    return pokemons
+  }
+
+  // TODO: maybe manage that in a better place
   getPokemons() {
-    const pokemonsSearched = this.getPokemonsSearched()
+    const pokemons = this.$data.results
+    const favoritedPokemons = this.getFavoritePokemons(pokemons)
+    const pokemonsSearched = this.getPokemonsSearched(favoritedPokemons)
     const sortedPokemons = this.getSortedPokemons(pokemonsSearched)
     const filteredPokemons = this.getFilterByType(sortedPokemons)
     return filteredPokemons
@@ -130,7 +145,7 @@ export default Index
 .container {
   max-width: 1200px; // TODO: use breakpoints later
   width: 100%;
-  margin: 0 auto;
+  margin: 0 20px;
   display: grid;
 }
 
@@ -148,14 +163,19 @@ export default Index
   justify-self: end;
 }
 
+.container > .pokemons {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  margin-top: 60px;
+}
+
 .search > .select > .text {
   font-size: 14px;
   margin-right: 15px;
 }
 
-.container > .pokemons {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  margin-top: 60px;
+.container > .pokemons > .filters > .title {
+  font-weight: 600;
+  font-size: 16px;
 }
 </style>
