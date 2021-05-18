@@ -1,8 +1,8 @@
 <template>
   <div class="poke-list">
     <poke-card
-      v-for="(pokemon, index) of getPokemons"
-      :key="index"
+      v-for="pokemon of getPokemons"
+      :key="pokemon.national_number"
       class="card"
       :data="pokemon"
     />
