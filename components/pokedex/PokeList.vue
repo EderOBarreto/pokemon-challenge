@@ -1,11 +1,16 @@
 <template>
   <div class="poke-list">
-    <poke-card
-      v-for="pokemon of getPokemons"
-      :key="pokemon.national_number"
-      class="card"
-      :data="pokemon"
-    />
+    <template v-if="getPokemons.length > 0">
+      <transition-group name="card" class="list" tag="div">
+        <poke-card
+          v-for="pokemon of getPokemons"
+          :key="pokemon.national_number"
+          class="card"
+          :data="pokemon"
+        />
+      </transition-group>
+    </template>
+    <p class="empty" v-else>Nenhum pokemon foi encontrado!</p>
   </div>
 </template>
 
@@ -35,7 +40,12 @@ export default PokeList
 @import '~/assets/scss/settings/measures.scss';
 
 .poke-list {
+  height: calc(100vh - 260px);
   overflow-y: auto;
+  @include scrollbars(5px, $red, $white);
+}
+
+.poke-list > .list {
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
@@ -45,13 +55,32 @@ export default PokeList
   padding-top: 25px;
   padding-left: 5px;
   padding-right: 5px;
-  height: calc(100vh - 260px); // TODO: consider cardheigth later
-  @include scrollbars(5px, $red, $white);
+  // TODO: consider cardheigth later
 }
 
-.poke-list:after {
+.poke-list > .empty {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+}
+
+.poke-list > .list:after {
   content: '';
   height: 25px;
   grid-column: 1/-1;
+}
+
+.poke-list > .list > .card {
+  transition: all ease 0.4s;
+}
+
+.poke-list > .list {
+  .card-enter,
+  .card-leave-to {
+    opacity: 0;
+  }
 }
 </style>

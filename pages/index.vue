@@ -152,6 +152,7 @@ export default Index
 .search {
   display: grid;
   grid-template-columns: repeat(2, auto);
+  height: 40px;
   margin-top: 40px;
   width: 100%;
 }
